@@ -5,7 +5,7 @@
 Exploring ways of using System.CommandLine to build CLI tools
 ```
 
-In this repo, i m exploring various ways in order to build a simple cli tool based on [System.CommandLine](https://github.com/dotnet/command-line-api)
+In this repo, i m exploring various ways in order to build a simple cli tool based on [System.CommandLine](https://github.com/dotnet/command-line-api).
 >
 > :one: straightforward way
 > - pros : simplicity

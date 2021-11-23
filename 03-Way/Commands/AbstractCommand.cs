@@ -12,7 +12,7 @@ public abstract class AbstractCommand : Command
 
     public void AddHandler<T>(Action<T> action)
     {
-        AddArgument<T>(action);
+        AddArgument(action);
         AddHandler(CommandHandler.Create(action));
     }
 
@@ -20,7 +20,10 @@ public abstract class AbstractCommand : Command
     {
         var methodInfo = action.GetMethodInfo();
         var argumentName = GetArgumentName(methodInfo);
-        AddArgument(new Argument<T>(argumentName));
+        if (!string.IsNullOrWhiteSpace(argumentName))
+        {
+            AddArgument(new Argument<T>(argumentName));
+        }
     }
 
     private void AddHandler(ICommandHandler handler)
@@ -28,15 +31,9 @@ public abstract class AbstractCommand : Command
         Handler = handler;
     }
 
-    private static string GetArgumentName(MethodBase method, int index = 0)
+    private static string? GetArgumentName(MethodBase method, int index = 0)
     {
-        var name = string.Empty;
-
-        if (index >= 0 && method.GetParameters().Length > index)
-        {
-            name = method.GetParameters()[index].Name;
-        }
-
-        return name!;
+        var parameters = method.GetParameters();
+        return parameters.Any() ? parameters[index].Name : null;
     }
 }
